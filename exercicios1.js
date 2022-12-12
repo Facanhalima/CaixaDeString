@@ -343,31 +343,47 @@ let inverterTexto = () =>{
 
  }
 
- let substitui = (texto) =>{
+ let retornaPolar = posicao =>{
+    const polar = ["p","o","l","a","r",]
+    return polar[posicao]
+  }
+  let retornaTenis = posicao =>{
+    const tenis = ["t","e","n","i","s",]
+    return tenis[posicao]
+  }
+  let trocarTenisPolar = array =>{
+    for(let i = 0; i < array.length; i++){
+      if("tenis".indexOf(array[i].toLowerCase()) != -1){
+        if(array[i] == array[i].toLowerCase()){
+          array[i] = retornaPolar("tenis".indexOf(array[i].toLowerCase()))
+        }else array[i] = retornaPolar("tenis".indexOf(array[i].toLowerCase())).toUpperCase()
+        continue
+      }
+      if("polar".indexOf(array[i].toLowerCase()) != -1){
+        if(array[i] == array[i].toLowerCase()){
+          array[i] = retornaTenis("polar".indexOf(array[i].toLowerCase()))
+        }else array[i] = retornaTenis("polar".indexOf(array[i].toLowerCase())).toUpperCase()
+        continue
+      }
+    }   
+  }
 
-    encontrarPalavra = (texto, "t", "p")
-    encontrarPalavra = (frase, "T", "P")
-    encontrarPalavra = (frase, "e", "o")
-    encontrarPalavra = (frase, "E", "O")
-    encontrarPalavra = (frase, "n", "l")
-    encontrarPalavra = (frase, "N", "L")
-    encontrarPalavra = (frase, "i", "a")
-    encontrarPalavra = (frase, "I", "A")
-    encontrarPalavra = (frase, "s", "r")
-    encontrarPalavra = (frase, "S", "R")
+  let imprimirArrayCaracteres = (div,array) =>{
+    for(let i = 0; i<array.length; i++){
+      div.innerHTML += array[i]
+    }
+  }
 
- }
+  let codificar = () =>{
 
- let codifica = () =>{
+    const textoDigitado = document.querySelector("#frase").value
+    let contentDiv = document.querySelector("#fraseCodificada")
+    contentDiv.innerHTML = ``
+    let bagOfLetters = textoDigitado.split("")
+    trocarTenisPolar(bagOfLetters)
+    imprimirArrayCaracteres(contentDiv,bagOfLetters)
 
-    const caixaTexto = document.getElementById("frase").value
-    let texto = caixaTexto.split("")
-    let textoCodificado = substitui(texto)
-    let textoFinal = textoCodificado.join("")
-    console.log(texto)
-    document.getElementById("fraseCodificada").innerHTML = textoFinal
-
- }
+  }
 
 botaoInverte.addEventListener("click",function(){
     
@@ -420,6 +436,6 @@ botaoTestarSenha.addEventListener("click", function(){
 
 botaoCodifica.addEventListener("click", function(){
 
-    codifica()
+    codificar()
 
 })
